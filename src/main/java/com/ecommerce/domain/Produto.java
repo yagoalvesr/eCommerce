@@ -1,6 +1,7 @@
 package com.ecommerce.domain;
 
 import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,19 +9,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cliente")
-public class Cliente {
+@Table(name = "produto")
+public class Produto {
 
+    @NotNull
     @Column(name = "id")
     @Id
     private String id;
     @NotNull
     @Column(name = "nome")
     private String nome;
-    @Column(name = "data_cadastro")
-    private String dataCadastro;
-    @Column(name = "status")
-    private Boolean status;
+    @NotNull
+    @Column(name = "valor")
+    private String valor;
+    @NotNull
+    @Column(name = "disponivel")
+    private Boolean disponivel;
 
     public String getId() {
         return id;
@@ -38,19 +42,19 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getDataCadastro() {
-        return dataCadastro;
+    public String getValor() {
+        return valor;
     }
 
-    public void setDataCadastro(String dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getDisponivel() {
+        return disponivel;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setDisponivel(Boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }

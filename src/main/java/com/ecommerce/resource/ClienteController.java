@@ -1,4 +1,4 @@
-package com.ecommerce.controller;
+package com.ecommerce.resource;
 
 import com.ecommerce.domain.Cliente;
 import com.ecommerce.domain.Retorno;
