@@ -33,4 +33,28 @@ public class ClienteService {
     public Cliente obterCliente(String id) {
         return clienteDAO.findById(id).get();
     }
+
+    public Retorno atualizarCliente(Cliente cliente) {
+        Cliente clienteAtualizacao = obterCliente(cliente.getId());
+        Cliente clienteSalvo = new Cliente();
+        Retorno retorno = new Retorno();
+
+        if (clienteAtualizacao != null) {
+            atualizarDadosclien(cliente, clienteAtualizacao);
+            clienteSalvo = clienteDAO.save(clienteAtualizacao);
+        }
+
+        if (clienteSalvo != null) {
+            retorno = new Retorno("Cliente atualizado com sucesso!", true, "Created");
+        }
+
+        return retorno;
+    }
+
+    private void atualizarDadosclien(Cliente cliente, Cliente clienteAtualizacao) {
+        clienteAtualizacao.setId(cliente.getId());
+        clienteAtualizacao.setDataCadastro(cliente.getDataCadastro());
+        clienteAtualizacao.setNome(cliente.getNome());
+        clienteAtualizacao.setStatus(cliente.getStatus());
+    }
 }

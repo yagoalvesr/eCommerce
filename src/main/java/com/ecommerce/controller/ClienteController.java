@@ -15,19 +15,24 @@ public class ClienteController {
     @Autowired
     ClienteService clienteService;
 
-    @RequestMapping(value = "/listarClientes", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Cliente> listarClientes() {
         return clienteService.listarClientes();
     }
 
-    @RequestMapping(value = "/inserirClientes", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Retorno inserirCliente(@RequestBody Cliente cliente) {
         return clienteService.inserirCliente(cliente);
     }
 
-    @RequestMapping(value = "/obterCliente/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Cliente obterCliente(@PathVariable String id) {
         return clienteService.obterCliente(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public Retorno atualizarCliente(@RequestBody Cliente cliente) {
+        return clienteService.atualizarCliente(cliente);
     }
 
 
