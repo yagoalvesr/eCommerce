@@ -1,9 +1,9 @@
 package com.ecommerce.resource;
 
 import com.ecommerce.domain.Cliente;
-import com.ecommerce.domain.Retorno;
 import com.ecommerce.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,24 +16,22 @@ public class ClienteController {
     ClienteService clienteService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Cliente> listarClientes() {
-        return clienteService.listarClientes();
+    public ResponseEntity<List<Cliente>> listarClientes() {
+        List<Cliente> clienteList = clienteService.listarClientes();
+        return ResponseEntity.ok().body(clienteList);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResponseEntity<Cliente> recuperarClientePorId(@PathVariable Integer id) {
+        Cliente cliente = clienteService.recuperarClientePorId(id);
+        return ResponseEntity.ok().body(cliente);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Retorno inserirCliente(@RequestBody Cliente cliente) {
-        return clienteService.inserirCliente(cliente);
-    }
+    public ResponseEntity<String> inserirCliente(@RequestBody Cliente cliente) {
+        clienteService.inserirCliente(cliente);
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Cliente obterCliente(@PathVariable String id) {
-        return clienteService.obterCliente(id);
+        return ResponseEntity.ok().body("Cliente inserido com sucesso");
     }
-
-    @RequestMapping(method = RequestMethod.PUT)
-    public Retorno atualizarCliente(@RequestBody Cliente cliente) {
-        return clienteService.atualizarCliente(cliente);
-    }
-
 
 }

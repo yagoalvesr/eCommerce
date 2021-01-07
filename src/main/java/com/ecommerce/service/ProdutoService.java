@@ -17,4 +17,8 @@ public class ProdutoService {
         return produtoDAO.findAll();
     }
 
+    public Produto recuperarProdutoPorId(Integer id) {
+        return produtoDAO.findById(id).get();
+    }
+
 }

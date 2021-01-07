@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "cliente")
-public class Cliente {
+@Table(name = "categoria")
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,8 @@ public class Cliente {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private List<Pedido> pedidoList = new ArrayList<>();
+    @ManyToMany(mappedBy = "categoriaSet")
+    private Set<Produto> produtoSet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -38,7 +40,8 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Set<Produto> getProdutoSet() {
+        return produtoSet;
     }
+
 }

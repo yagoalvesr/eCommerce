@@ -1,36 +1,34 @@
 package com.ecommerce.domain;
 
-import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
 public class Produto {
 
-    @NotNull
-    @Column(name = "id")
     @Id
-    private String id;
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "nome")
     private String nome;
-    @NotNull
-    @Column(name = "valor")
-    private String valor;
-    @NotNull
-    @Column(name = "disponivel")
-    private Boolean disponivel;
+    @Column(name = "preco")
+    private Double preco;
 
-    public String getId() {
+    @ManyToMany
+    @JoinTable(name = "produto_categoria",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private Set<Categoria> categoriaSet = new HashSet<>();
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,19 +40,16 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getValor() {
-        return valor;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
-    public Boolean getDisponivel() {
-        return disponivel;
+    public Set<Categoria> getCategoriaSet() {
+        return categoriaSet;
     }
 
-    public void setDisponivel(Boolean disponivel) {
-        this.disponivel = disponivel;
-    }
 }
